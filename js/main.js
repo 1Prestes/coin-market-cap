@@ -1,20 +1,22 @@
 const APIKey = {
-  key: 'a36f101f-2917-4580-90e4-70514ae750f7'
-}
+  key: "a36f101f-2917-4580-90e4-70514ae750f7",
+};
 
-fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=${APIKey.key}`)
-  .then(response => {
-    if (!response.ok) throw new Error(`DEU RUIM! status: ${response.status}`)
-    return response.json()
+fetch(
+  `https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=${APIKey.key}`
+)
+  .then((response) => {
+    if (!response.ok) throw new Error(`DEU RUIM! status: ${response.status}`);
+    return response.json();
   })
-  .then(api => {
-    console.log(api)
+  .then((api) => {
+    console.log(api);
 
-    let coins = ''
+    let coins = "";
 
     for (let i = 0; i < 10; i++) {
-      let data = new Date(api.data[i].first_historical_data)
-      var newData = data.toLocaleDateString()
+      let data = new Date(api.data[i].first_historical_data);
+      var newData = data.toLocaleDateString();
       coins += `
         <div class="container">
           <div class="media d-flex flex-wrap alert alert-warning">
@@ -26,10 +28,25 @@ fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=$
             </div>
           </div>
         </div>
-      `
-      document.getElementById('coins').innerHTML = coins
+      `;
+      document.getElementById("coins").innerHTML = coins;
     }
   })
-  .catch(error => {
-    console.error(error.message)
-  })
+  .catch((error) => {
+    let messageError = `
+    <div class="container">
+      <div class="alert alert-danger">
+
+          <h5>Erro inesperado</h5>
+          <p>Tente instalar e ativar a extenção
+              <a href="https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc"
+                  target="_blank" rel="noopener noreferrer">Moesif Origin & CORS Changer
+              </a>
+          </p>
+      </div>
+    </div>
+    `;
+    console.error(error.message);
+
+    document.getElementById("coins").innerHTML = messageError;
+  });
