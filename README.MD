@@ -1,0 +1,1 @@
+# API simples para consulta de cripto moedas
