@@ -10,13 +10,12 @@ fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=$
   .then(api => {
     console.log(api)
 
-    let texto = ''
-
+    let coins = ''
 
     for (let i = 0; i < 10; i++) {
       let data = new Date(api.data[i].first_historical_data)
       var newData = data.toLocaleDateString()
-      texto += `
+      coins += `
         <div class="container">
           <div class="media d-flex flex-wrap alert alert-warning">
             <img src="https://www.sampsoniaway.org/wp-content/uploads/2015/09/Retro-Coin-icon.png" class="align-self-center mr-3" alt="coin image" width="100" height="60"/>
@@ -28,7 +27,7 @@ fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=$
           </div>
         </div>
       `
-      document.getElementById('coins').innerHTML = texto
+      document.getElementById('coins').innerHTML = coins
     }
   })
   .catch(error => {
